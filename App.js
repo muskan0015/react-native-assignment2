@@ -1,6 +1,7 @@
 import 'react-native-reanimated'; 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View, Platform, FlatList, RefreshControl, Alert, StatusBar, Image, Pressable } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'; 
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -137,9 +138,10 @@ export default function App() {
   const listContent = useMemo(() => styles.listContent, []);
 
   return (
+    <SafeAreaProvider>
     <GestureHandlerRootView style={styles.screen}>
       <StatusBar barStyle={Platform.OS === 'ios' ? 'dark-content' : 'default'} />
-
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}> 
       <View style={styles.headerWrap}>
         <Text style={styles.headerTitle}>Welcome to the User List</Text>
       </View>
@@ -158,35 +160,15 @@ export default function App() {
         }
       />
 
-      {/* Custom FAB (no UI kit) */}
+      
       <Pressable style={styles.fab} onPress={addOne} accessibilityLabel="Add one user">
         <Text style={styles.fabPlus}>＋</Text>
       </Pressable>
+      </SafeAreaView>
     </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
 
 
 
-// import 'react-native-reanimated';
-
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
